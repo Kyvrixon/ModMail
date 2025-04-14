@@ -25,7 +25,8 @@ I made this bot originally on commission but it was so good I decided to further
 
 <h2 align="center">📦 Installation</h2>
 
-> [!NOTE] Recommended to use latest Node LTS versions (v22.14.0 at time of writing)
+> [!NOTE]
+> Recommended to use latest Node LTS versions (v22.14.0 at time of writing)
 
 ```bash <br />
 npm install --force
@@ -36,34 +37,16 @@ npm run start
 
 Rename `config.ts.example` → `config.ts`, then fill in values. Types will help prevent misconfig errors.
 
-<h2 align="center">🪄 Slash Commands – (Working on it!)</h2>
+<h2 align="center">🪄 Slash Commands</h2>
 
-<table>
-  <thead>
-    <tr>
-      <th>Command</th>
-      <th>Description (🛠️ = coming soon)</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>`/blacklist` 🛠️</td>
-      <td>Block users from contacting the bot with timers & reason</td>
-    </tr>
-    <tr>
-      <td>`/mails` 🛠️</td>
-      <td>Lookup open/closed mail history</td>
-    </tr>
-    <tr>
-      <td>`/appeal` 🛠️</td>
-      <td>Appeal a blacklist</td>
-    </tr>
-    <tr>
-      <td>`/update` 🛠️</td>
-      <td>Check if the bot has an update or refresh configs</td>
-    </tr>
-  </tbody>
-</table>
+🛠️ = Coming soon
+
+| Command | Description |
+| --- | --- |
+| `/blacklist` 🛠️ | Block users from contacting the bot with timers & reason |
+| `/mails` 🛠️ | Lookup open/closed mail history |
+| `/appeal` 🛠️ | Appeal a blacklist |
+| `/update` 🛠️ | Check if the bot has an update or refresh configs |
 
 <h2 align="center">🔨 Moderation Features</h2>
 
