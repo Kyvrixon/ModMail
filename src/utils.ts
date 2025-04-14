@@ -11,7 +11,6 @@ import {
 	TextInputBuilder,
 	TextInputStyle
 } from "discord.js";
-import { randomBytes } from "crypto";
 
 export const formatSeconds: Utils["formatSeconds"] = (seconds, options) => {
 	const { includeZeroUnits, onlyUnits, format } = options ?? {
@@ -102,11 +101,11 @@ export const footer: Utils["footer"] = (text, pic) => {
 export const genId: Utils["genId"] = (length: number): string => {
 	const characters =
 		"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-	const buffer = randomBytes(length);
 	let result = "";
 	for (let i = 0; i < length; i++) {
-		result += characters[buffer[i] % characters.length];
-	};
+		const randomIndex = Math.floor(Math.random() * characters.length);
+		result += characters[randomIndex];
+	}
 	return result;
 };
 
