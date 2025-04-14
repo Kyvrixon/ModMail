@@ -1,14 +1,19 @@
 {
-	"$schema": "https://docs.renovatebot.com/renovate-schema.json",
-	"extends": ["config:base"],
-	"dependencyDashboard": false,
+    "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+    "extends": [
+        "config:recommended"
+    ],
 	"labels": ["Dep Updates"],
-	"prHourlyLimit": 0,
-	"prConcurrentLimit": 0,
-	"prFooter": "",
-	"packageRules": [
-		{
-			"matchUpdateTypes": ["major", "minor", "patch"]
-		}
-	]
+    "packageRules": [
+        {
+            "schedule": [
+                "at any time"
+            ],
+            "matchPackageNames": [
+                "*"
+            ]
+        }
+    ],
+    "dependencyDashboard": false,
+    "rangeStrategy": "bump"
 }
