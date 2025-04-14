@@ -1,0 +1,16 @@
+{
+	"compilerOptions": {
+		"module": "ESNext",
+		"moduleResolution": "node",
+		"target": "ES2022",
+		"strict": true,
+		"esModuleInterop": true,
+		"skipLibCheck": true,
+		"noImplicitAny": true,
+		"forceConsistentCasingInFileNames": true,
+		"outDir": "./dist",
+		"incremental": false
+	},
+	"include": ["**/*.ts", "**/*.json", "test.ts"],
+	"exclude": ["node_modules", "OUTPUT", "dist", "./src/db/**/*.json"]
+}

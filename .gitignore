@@ -1,0 +1,7 @@
+dist/
+node_modules/
+.vscode
+test.ts
+.env
+config.ts
+styles.ts
