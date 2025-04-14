@@ -7,7 +7,6 @@
 	"prHourlyLimit": 0,
 	"prConcurrentLimit": 0,
 	"prFooter": "",
-	"prBodyTemplate": "{{{table}}}{{{warnings}}}{{{notes}}}{{{changelogs}}}{{{controls}}}{{{footer}}}",
 	"packageRules": [
 		{
 			"matchUpdateTypes": ["major", "minor", "patch"]
