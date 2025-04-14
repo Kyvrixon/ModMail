@@ -6,7 +6,7 @@
 	"dependencies": {
 		"colorette": "^2.0.20",
 		"discord-html-transcripts": "^3.2.0",
-		"discord.js": "^14.18.0"
+		"discord.js": "^13.17.1"
 	},
 	"scripts": {
 		"clear": "node --eval \"console.clear()\"",
