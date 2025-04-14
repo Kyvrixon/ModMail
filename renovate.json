@@ -4,6 +4,8 @@
         "config:recommended"
     ],
 	"labels": ["Dep Updates"],
+	"prFooter": "",
+	"prBodyTemplate": "{{{header}}}{{{table}}}{{{warnings}}}{{{notes}}}{{{changelogs}}}{{{controls}}}",
     "packageRules": [
         {
             "schedule": [
