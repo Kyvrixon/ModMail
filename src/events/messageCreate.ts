@@ -30,6 +30,10 @@ const event: BotEvent = {
 	once: false,
 	run: async (client, message: Message) => {
 		const originalContent = message.content;
+		if (await autoresponseCheck(message)) {
+			processLock.delete(message.author.id);
+			return;
+		}
 		try {
 			if (
 				message.author.bot ||
@@ -72,11 +76,6 @@ const event: BotEvent = {
 
 			messageCooldowns.set(message.author.id, { time: client.c.msgCooldown });
 
-			if (await autoresponseCheck(message)) {
-				processLock.delete(message.author.id);
-				return;
-			}
-
 			let isForward: boolean = false;
 			if (message.messageSnapshots?.size > 0) {
 				isForward = true;
@@ -89,6 +88,13 @@ const event: BotEvent = {
 			}
 
 			if (!message.guild) {
+				if (!client.c.devs.includes(message.author.id)) {
+					processLock.delete(message.author.id);
+					return await (message.channel as DMChannel).send(
+						"I'm not ready to be used yet!",
+					);
+				}
+
 				if (confirmations.has(message.author.id)) {
 					await message.reply("Please press yes or no");
 					processLock.delete(message.author.id);
@@ -153,7 +159,7 @@ const event: BotEvent = {
 						try {
 							await wc.send(payload);
 						} catch (e) {
-							const errMsg = `There was an error sending your message. Please contact **@kyvrixon** (<@981755777754755122>).\n\n${(e as Error).message}`;
+							const errMsg = `There was an error sending your message. Please contact a developer.\n\n${(e as Error).message}`;
 							await (message.channel as DMChannel).send(errMsg);
 						}
 					} else {
@@ -404,6 +410,8 @@ const event: BotEvent = {
 };
 
 async function autoresponseCheck(message: Message): Promise<true | void> {
+	if (message.author.bot || message.author.system || message.webhookId) return;
+
 	const triggerMessage = autoRespondersMap.get(message.content);
 	if (triggerMessage) {
 		await message.reply(triggerMessage);

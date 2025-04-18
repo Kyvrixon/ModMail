@@ -1,7 +1,8 @@
 import fs from "fs";
-import { delay } from "./utils.js";
+import { delay } from "#utils";
 import path from "path";
 
+// Will convert to an NPM package sometime
 class DB implements Database {
 	dbPath: string;
 	currentlyWriting: Set<string>;

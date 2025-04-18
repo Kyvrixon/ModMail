@@ -4,7 +4,8 @@
 <h1 align="center">
   <img alt="Static Badge" src="https://img.shields.io/badge/version-not_yet!-red?style=for-the-badge" />
 
-  Discord Modmail
+Discord Modmail
+
 </h1>
 
 A fast, efficient, zero bloat DM-based ModMail system for Discord!
@@ -13,12 +14,13 @@ I made this bot originally on commission but it was so good I decided to further
 
 <h3>Table of contents</h3>
 
-| Link |                          Description                                    |
-|------|-------------------------------------------------------------------------|
-| [`🔨 Install`](./docs/installation.md) | Install the bot and dependencies      |
-| [`✨ Features`](./docs/features.md) | All current features, including commands |
-| [`⚙️ Configs`](./docs/config.md) | Bot configurations                          |
-| [`🤔 FAQ`](./docs/faq.md) | Frequently asked questions                         |
-| [`🤝 Contributing`](./docs/contributing.md) | Contribute to the project        |
-| [`📍 Roadmap`](./docs/roadmap.md) | Planned feature roadmap                    |
-| [`⚖️ Legal`](./docs/legal.md) | Legal stuff noone likes                        |
+| Link                                        | Description                              |
+| ------------------------------------------- | ---------------------------------------- |
+| [`🔨 Install`](./docs/installation.md)      | Install the bot and dependencies         |
+| [`✨ Features`](./docs/features.md)         | All current features, including commands |
+| [`⚙️ Configs`](./docs/config.md)            | Bot configurations                       |
+| [`🤔 FAQ`](./docs/faq.md)                   | Frequently asked questions               |
+| [`🤝 Contributing`](./docs/contributing.md) | Contribute to the project                |
+| [`📍 Roadmap`](./docs/roadmap.md)           | Planned feature roadmap                  |
+| [`⚖️ Legal`](./docs/legal.md)               | Legal stuff noone likes                  |
+| [`🧩 Addons`](./docs/addons.md)             | Information about addon support          |

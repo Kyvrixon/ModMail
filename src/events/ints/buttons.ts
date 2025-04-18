@@ -5,6 +5,8 @@ import {
 	ButtonStyle,
 	EmbedBuilder,
 	Message,
+	MessageFlags,
+	TextChannel,
 } from "discord.js";
 import db from "../../db.js";
 import { formatSeconds } from "../../utils.js";
@@ -107,7 +109,36 @@ const handleButton = async (
 			});
 			break;
 		}
+
+		case "ticket-close": {
+			const data = await db.groupRead("mails");
+			const maildata = (
+				Array.from(data?.values() || []) as Array<MailData> | []
+			).find(
+				(mail) =>
+					mail.closed === false && mail.channel === interaction.channel!.id,
+			);
+			if (!data) {
+				await interaction.reply({
+					content:
+						"Seems like there was no data for this mail. Deleting channel in 5 seconds.",
+					flags: MessageFlags.Ephemeral,
+				});
+
+				setTimeout(async () => {
+					await (interaction.channel as TextChannel)
+						.delete("Mail closed (No data found)")
+						.catch(() => null);
+				}, 5 * 1000);
+
+				return;
+			}
+		}
+		default: {
+			break;
+		}
 	}
+
 	return;
 };
 

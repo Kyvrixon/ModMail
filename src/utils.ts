@@ -9,7 +9,7 @@ import {
 	ModalBuilder,
 	TextChannel,
 	TextInputBuilder,
-	TextInputStyle
+	TextInputStyle,
 } from "discord.js";
 
 export const formatSeconds: Utils["formatSeconds"] = (seconds, options) => {

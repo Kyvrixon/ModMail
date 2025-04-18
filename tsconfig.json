@@ -1,16 +1,32 @@
 {
 	"compilerOptions": {
-		"module": "ESNext",
-		"moduleResolution": "node",
+		"module": "NodeNext",
+		"moduleResolution": "nodenext",
 		"target": "ES2022",
 		"strict": true,
 		"esModuleInterop": true,
 		"skipLibCheck": true,
 		"noImplicitAny": true,
+		"allowJs": true,
+		"checkJs": false,
 		"forceConsistentCasingInFileNames": true,
 		"outDir": "./dist",
-		"incremental": false
+		"incremental": false,
+		"rootDir": ".",
+		"baseUrl": "."
 	},
-	"include": ["**/*.ts", "**/*.json", "test.ts"],
-	"exclude": ["node_modules", "OUTPUT", "dist", "./src/db/**/*.json"]
+	"include": [
+		"**/*.ts",
+		"**/*.json",
+		"test.ts",
+		"src/addons/js-test/cmd_test.js",
+		"src/addons/js-test/event_test.js"
+	],
+	"exclude": ["node_modules", "OUTPUT", "dist", "./src/db/**/*.json"],
+	"paths": {
+		"#root/*": ["./*"],
+		"#utils": ["./src/utils.js"],
+		"#db": ["./src/db.js"],
+		"#AddonManager": ["./src/addonManager.js"]
+	}
 }

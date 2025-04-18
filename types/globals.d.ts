@@ -13,6 +13,7 @@ declare global {
 	var confirmations: Set<string>;
 	var Server: Guild;
 	var styles: StylesConfig;
+	var addonCommands: Collection<string, AddonCommand>;
 }
 
 export {};

@@ -27,5 +27,11 @@
 		"simple-git": "^3.27.0",
 		"typescript": "^5.8.3",
 		"typescript-eslint": "^8.30.1"
+	},
+	"imports": {
+		"#root/*": "./dist/*",
+		"#utils": "./dist/src/utils.js",
+		"#db": "./dist/src/db.js",
+		"#AddonManager": "./dist/src/addonManager.js"
 	}
 }

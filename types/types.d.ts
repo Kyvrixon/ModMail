@@ -12,6 +12,7 @@ import {
 	ComponentEmojiResolvable,
 	Guild,
 	SlashCommandBuilder,
+	SlashCommandOptionsOnlyBuilder,
 	Snowflake,
 	WebhookClient,
 } from "discord.js";
@@ -29,6 +30,8 @@ declare global {
 
 	/**Configuration for initialization.*/
 	type InitConfig = {
+		/** devs */
+		devs: Array<string>;
 		/** Relating to your bot */
 		bot: {
 			/**Bot token used for authentication.*/
@@ -197,26 +200,27 @@ declare global {
 
 	/** Bot command structure */
 	type BotCommand = {
-		/** Is only available to the dev */
+		/** Is only available to the dev and server owner */
 		isDev: boolean;
-		/** Options to where the command is allowed
-		 * - `dm` - Allowed in DMs
-		 * - `guild` - Allowed in guilds
-		 */
-		places: Array<"dm" | "guild">;
 		/** SlashCommandBuilder instance */
-		data: SlashCommandBuilder;
+		data: SlashCommandBuilder | SlashCommandOptionsOnlyBuilder;
 		/** Command logic */
 		execute: (
 			client: Bot,
 			interaction: ChatInputCommandInteraction,
-		) => Promise<any>;
+		) => Promise<void>;
 		/** Command autocomplete logic */
 		autocomplete?: (
 			client: Bot,
 			interaction: AutocompleteInteraction,
-		) => Promise<any>;
+		) => Promise<void>;
 	};
+
+	type AddonEvent = (client: Bot) => Promise<void>;
+	type AddonCommand = (
+		client: Bot,
+		interaction: ChatInputCommandInteraction,
+	) => Promise<void>;
 }
 
 export {};

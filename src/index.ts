@@ -13,8 +13,16 @@ import {
 import fs from "fs";
 import path from "path";
 import config from "../config.js";
+import AddonManager from "./addonManager.js";
 
 const dr = getDirname();
+
+process.on("unhandledRejection", (reason /*, promise*/) => {
+	console.error("Unhandled Rejection at:", (reason as Error).stack || reason);
+});
+process.on("uncaughtException", (error) => {
+	console.error("Uncaught Exception:", error);
+});
 
 (async () => {
 	try {
@@ -66,6 +74,8 @@ const dr = getDirname();
 		}) as Bot;
 
 		client.c = config;
+		Object.freeze(client.c);
+		
 		client.commands = new Collection<string, BotCommand>();
 		const commandsPath = path.join(dr, "./commands/");
 		const commandFiles = await fs.promises.readdir(commandsPath);
@@ -135,6 +145,8 @@ const dr = getDirname();
 				continue;
 			}
 		}
+
+		await AddonManager.init();
 
 		await client.login(client.c.bot.token);
 	} catch (e) {
