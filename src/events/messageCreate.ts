@@ -30,10 +30,6 @@ const event: BotEvent = {
 	once: false,
 	run: async (client, message: Message) => {
 		const originalContent = message.content;
-		if (await autoresponseCheck(message)) {
-			processLock.delete(message.author.id);
-			return;
-		}
 		try {
 			if (
 				message.author.bot ||
@@ -76,6 +72,11 @@ const event: BotEvent = {
 
 			messageCooldowns.set(message.author.id, { time: client.c.msgCooldown });
 
+			if (await autoresponseCheck(message)) {
+				processLock.delete(message.author.id);
+				return;
+			}
+
 			let isForward: boolean = false;
 			if (message.messageSnapshots?.size > 0) {
 				isForward = true;
@@ -107,12 +108,6 @@ const event: BotEvent = {
 				);
 
 				if (userData) {
-					if (!Server) {
-						console.log("Server doesnt exist yet");
-						processLock.delete(message.author.id);
-						return;
-					}
-
 					const channel = Server.channels.cache.get(userData.channel);
 
 					async function getWebhook(): Promise<WebhookClient> {
@@ -263,7 +258,7 @@ const event: BotEvent = {
 						const errorMsg =
 							`An error occured while trying to create a new ticket for you: \n` +
 							`> \`${error.message}\`\n` +
-							`-# Please contact **kyvrixon** (<@981755777754755122>) about this error!`;
+							`-# Please contact a dev about this error!`;
 						await (message.channel as DMChannel).send({ content: errorMsg });
 
 						ticketCooldowns.delete(message.author.id);
@@ -380,17 +375,12 @@ const event: BotEvent = {
 						});
 					}
 
-					const cacheBody: CacheMessage = {
-						id: message.id,
-						author: message.author.id,
-					};
-
-					await Promise.all([
-						db.write("mails/" + mailData.ID, mailData),
-						db.write("cache/messages/" + mailData.channel, cacheBody),
-					]);
-
-					await (dm as DMChannel).send(payload);
+					await db.write("mails/" + mailData.ID, mailData);
+					const userMsg = await (dm as DMChannel).send(payload);
+					await db.write("cache/messages/" + mailData.ID, {
+						id: userMsg.id,
+						ref: message.id,
+					} as CacheMessage);
 				} catch (e) {
 					console.log(e); // cannot send empty message
 					await message.reply({
@@ -409,13 +399,17 @@ const event: BotEvent = {
 	},
 };
 
-async function autoresponseCheck(message: Message): Promise<true | void> {
-	if (message.author.bot || message.author.system || message.webhookId) return;
+async function autoresponseCheck(message: Message): Promise<boolean> {
+	if (message.author.bot || message.author.system || message.webhookId)
+		return false;
 
-	const triggerMessage = autoRespondersMap.get(message.content);
+	const triggerMessage = autoRespondersMap.get(message.content.trim());
 	if (triggerMessage) {
 		await message.reply(triggerMessage);
+		return true;
 	}
+
+	return false;
 }
 
 export default event;

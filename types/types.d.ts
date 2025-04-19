@@ -22,12 +22,6 @@ declare global {
 	type StylesConfig = {
 		[key: string]: any;
 	};
-	/** Message cache */
-	type CacheMessage = {
-		id: string;
-		author: string;
-	};
-
 	/**Configuration for initialization.*/
 	type InitConfig = {
 		/** devs */

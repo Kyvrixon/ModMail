@@ -15,13 +15,6 @@
 		"rootDir": ".",
 		"baseUrl": "."
 	},
-	"include": [
-		"**/*.ts",
-		"**/*.json",
-		"test.ts",
-		"src/addons/js-test/cmd_test.js",
-		"src/addons/js-test/event_test.js"
-	],
 	"exclude": ["node_modules", "OUTPUT", "dist", "./src/db/**/*.json"],
 	"paths": {
 		"#root/*": ["./*"],

@@ -1,4 +1,5 @@
-import "./globals.js";
+import "./globals.ts";
+import "./cron.js";
 
 import { blue, red, yellow } from "colorette";
 import {
@@ -9,11 +10,22 @@ import {
 	Partials,
 	REST,
 	Routes,
+	WebhookClient,
 } from "discord.js";
 import fs from "fs";
 import path from "path";
 import config from "../config.js";
 import AddonManager from "./addonManager.js";
+import url from "url";
+
+globalThis.getDirname = (): string =>
+	path.dirname(url.fileURLToPath(import.meta.url));
+
+globalThis.webhookCache = new Map<string, WebhookClient>();
+globalThis.messageCooldowns = new Map<string, { time: number }>();
+globalThis.ticketCooldowns = new Map<string, { time: number }>();
+globalThis.processLock = new Set<string>();
+globalThis.confirmations = new Set<string>();
 
 const dr = getDirname();
 
@@ -75,7 +87,7 @@ process.on("uncaughtException", (error) => {
 
 		client.c = config;
 		Object.freeze(client.c);
-		
+
 		client.commands = new Collection<string, BotCommand>();
 		const commandsPath = path.join(dr, "./commands/");
 		const commandFiles = await fs.promises.readdir(commandsPath);

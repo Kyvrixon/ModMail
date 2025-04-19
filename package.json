@@ -6,7 +6,8 @@
 	"dependencies": {
 		"colorette": "^2.0.20",
 		"discord-html-transcripts": "^3.2.0",
-		"discord.js": "^14.18.0"
+		"discord.js": "^14.18.0",
+		"node-cron": "^3.0.3"
 	},
 	"scripts": {
 		"clear": "node --eval \"console.clear()\"",
@@ -21,6 +22,7 @@
 	"devDependencies": {
 		"@eslint/js": "^9.24.0",
 		"@types/node": "^22.14.1",
+		"@types/node-cron": "^3.0.11",
 		"eslint": "^9.24.0",
 		"globals": "^16.0.0",
 		"prettier": "^3.5.3",
@@ -58,11 +60,5 @@
 		"discord inbox",
 		"dm support bot",
 		"discord dm support"
-	],
-	"imports": {
-		"#root/*": "./dist/*",
-		"#utils": "./dist/src/utils.js",
-		"#db": "./dist/src/db.js",
-		"#AddonManager": "./dist/src/addonManager.js"
-	}
+	]
 }
