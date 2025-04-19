@@ -380,7 +380,7 @@ const event: BotEvent = {
 					await db.write("cache/messages/" + mailData.ID, {
 						id: userMsg.id,
 						ref: message.id,
-					} as CacheMessage);
+					});
 				} catch (e) {
 					console.log(e); // cannot send empty message
 					await message.reply({
