@@ -15,7 +15,7 @@ import {
 	WebhookType,
 } from "discord.js";
 import db from "../db.js";
-import { footer, formatSeconds } from "../utils.js";
+import { footer, formatSeconds, permCalc } from "../utils.js";
 import handleButton from "./ints/buttons.js";
 
 const autoRespondersMap = new Map<string, string>(
@@ -301,35 +301,16 @@ const event: BotEvent = {
 					}
 				}
 
-				const permissionsCalculator = (member: GuildMember) => {
-					const staffRoles = client.c.supportRoles;
-
-					if (!staffRoles || staffRoles.length === 0) {
-						return "Staff";
-					}
-
-					const sortedRoles = member.roles.cache
-						.sort((a, b) => b.position - a.position)
-						.map((role) => role.id);
-
-					const highestRole = staffRoles.find((role) =>
-						sortedRoles.includes(role.id),
-					);
-
-					const result = highestRole ? highestRole.name : "Staff";
-					return result;
-				};
-
-				const perms = permissionsCalculator(message.member as GuildMember);
+				const perms = permCalc(message.member as GuildMember);
 
 				const embed = new EmbedBuilder()
 					.setAuthor({
 						name: message.member!.nickname
 							? `${message.member!.nickname} (${message.author.username})`
 							: message.author.globalName!.toLowerCase() ===
-										message.author.username.toLowerCase() ||
-								  message.author.displayName.toLowerCase() ===
-										message.author.username.toLowerCase()
+								message.author.username.toLowerCase() ||
+								message.author.displayName.toLowerCase() ===
+								message.author.username.toLowerCase()
 								? `${message.author.username}`
 								: `${message.author.displayName} (${message.author.username})`,
 						iconURL: message.author.displayAvatarURL(),
@@ -358,7 +339,7 @@ const event: BotEvent = {
 					const dm = await user.createDM();
 					if (!dm) {
 						throw new Error("Unable to create DM");
-					}
+					};
 
 					mailData.count.messages++;
 
@@ -375,12 +356,10 @@ const event: BotEvent = {
 						});
 					}
 
-					await db.write("mails/" + mailData.ID, mailData);
-					const userMsg = await (dm as DMChannel).send(payload);
-					await db.write("cache/messages/" + mailData.ID, {
-						id: userMsg.id,
-						ref: message.id,
-					});
+					await Promise.all([
+						db.write("mails/" + mailData.ID, mailData),
+						(dm as DMChannel).send(payload)
+					]);
 				} catch (e) {
 					console.log(e); // cannot send empty message
 					await message.reply({

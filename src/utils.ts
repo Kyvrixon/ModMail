@@ -5,6 +5,7 @@ import {
 	ComponentType,
 	DMChannel,
 	EmbedBuilder,
+	GuildMember,
 	MessageFlags,
 	ModalBuilder,
 	TextChannel,
@@ -342,7 +343,7 @@ export const createLeaderboard: Utils["createLeaderboard"] = async (
 						),
 					],
 				});
-			} catch {}
+			} catch { }
 		});
 	} catch (e) {
 		console.error("Failed to generate pagination: " + (e as Error).message);
@@ -350,8 +351,28 @@ export const createLeaderboard: Utils["createLeaderboard"] = async (
 	}
 };
 
+export const permCalc: Utils["permCalc"] = (member: GuildMember) => {
+	const staffRoles = client.c.supportRoles;
+
+	if (!staffRoles || staffRoles.length === 0) {
+		return "Staff";
+	}
+
+	const sortedRoles = member.roles.cache
+		.sort((a, b) => b.position - a.position)
+		.map((role) => role.id);
+
+	const highestRole = staffRoles.find((role) =>
+		sortedRoles.includes(role.id),
+	);
+
+	const result = highestRole ? highestRole.name : "Staff";
+	return result;
+};
+
 export default {
 	formatSeconds,
 	delay,
 	footer,
+	permCalc
 };

@@ -50,6 +50,8 @@ declare global {
 			metadata?: Array<_Embed>,
 			extras?: Array<ActionRowBuilder<any>>,
 		) => Promise<void>;
+		/** Calculate permissions for a member */
+		permCalc: (member: GuildMember) => string;
 	}
 
 	/** Database interface.*/
