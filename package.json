@@ -20,9 +20,9 @@
 		"dev": "npm run build && npm run run"
 	},
 	"devDependencies": {
-		"@eslint/js": "^9.25.0",
+		"@eslint/js": "^9.25.1",
 		"@types/node": "^22.14.1",
-		"eslint": "^9.25.0",
+		"eslint": "^9.25.1",
 		"@types/node-cron": "^3.0.11",
 		"globals": "^16.0.0",
 		"prettier": "^3.5.3",
